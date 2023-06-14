@@ -1,0 +1,61 @@
+pipeline { 
+    agent any 
+    environment{
+    NEW_VERSION= '1.5'
+    }
+    parameters{
+    //string(name:'VERSION' , defaultValue:'',description:' vesrion to deply prod')
+    choice(name:'VERSION' , choices:[ '1.1.0','1.2.0','1.3.0' ],description :'vv')
+    booleanParam(name : 'executeTests' ,defaultValue: false ,description :' enabletest')
+    booleanParam(name : 'sec-test' ,defaultValue: true ,description :' secuirty test')
+
+    
+    }
+    stages {
+        stage('Build_jar') { 
+            steps { 
+                echo "in buid" 
+            
+            }
+        }
+        
+        
+        stage('buil image'){
+            steps {
+                echo "in  builing image " 
+                
+                  }
+                            
+            }
+
+
+        stage('test2'){
+           when {expression{
+               params.executeTests
+                    } 
+               }
+          
+            steps {
+                echo "TEST TEST TEST " 
+                
+                 }
+                
+               
+        }    
+      
+        stage('Deploy') {
+            
+        
+        
+            
+                                         
+             steps {
+                echo "in DDDDDDDDDDDDDDDDDeply" 
+                echo " VERSIOn : ${NEW_VERSION} "
+                 
+                             
+                  }   
+            
+        }
+    }
+}
